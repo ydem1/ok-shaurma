@@ -1,11 +1,17 @@
 import { Logo } from "../Logo";
-import { Navigation } from "./Navigation";
+import { CompanyInfo } from "./CompanyInfo";
+import { SocialLinks } from "./SocialLinks";
 
 export const Header = () => (
-  <header className="rounded-b-30 p-7.5 border border-gray-base bg-white-base">
-    <div className="container flex items-center justify-between py-6">
-      <Logo />
-      <Navigation />
+  <header className="shadow-custom bg-white-base">
+    <div className="container grid h-24 grid-cols-3 items-center">
+      <CompanyInfo />
+
+      <div className="flex justify-center">
+        <Logo />
+      </div>
+
+      <SocialLinks />
     </div>
   </header>
 );

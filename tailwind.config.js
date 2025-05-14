@@ -10,7 +10,7 @@ module.exports = {
           ligth: "#FAFBFF",
         },
         gray: {
-          base: "#F0F0F0",
+          base: "#F2F2F2",
         },
         red: {
           base: "#FF5252",
@@ -19,11 +19,17 @@ module.exports = {
       spacing: {
         15: "60px",
       },
+      fontFamily: {
+        inter: "Inter, sans-serif",
+      },
       maxWidth: {
         360: "1440px",
       },
       borderRadius: {
         30: "30px",
+      },
+      boxShadow: {
+        custom: "0px 10px 20px rgba(51, 51, 51, 0.05)",
       },
       screens: {
         default: "0px",

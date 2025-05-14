@@ -1,9 +1,8 @@
-import { SvgIconTypeMap } from "@mui/material";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
+import { IconName } from "./name";
 
 export interface ILink {
   id: number;
   label?: string;
   href: string;
-  icon?: OverridableComponent<SvgIconTypeMap<object, "svg">>;
+  icon?: IconName;
 }

@@ -1,12 +1,21 @@
 // TODO add api
+import { FC } from "react";
+import cn from "classnames";
 
 const phone = "380942564545";
 
-export const CompanyInfo = () => (
-  <div className="flex gap-7">
-    <span className="text-base font-bold">Хмельницький</span>
+interface Props {
+  className?: string;
+}
 
-    <a href={`tel:${phone}`} className="text-base font-bold hover:underline">
+export const CompanyInfo: FC<Props> = ({ className }) => (
+  <div className={cn("flex gap-7", className)}>
+    <span className="hidden text-base font-bold xl:block">Хмельницький</span>
+
+    <a
+      href={`tel:${phone}`}
+      className="hidden text-base font-bold hover:underline xs:block"
+    >
       +38 094 256 45 45
     </a>
   </div>

@@ -4,14 +4,17 @@ import { SocialLinks } from "./SocialLinks";
 
 export const Header = () => (
   <header className="shadow-custom bg-white-base">
-    <div className="container grid h-24 grid-cols-3 items-center">
-      <CompanyInfo />
+    <div className="container flex h-24 items-center xl:grid xl:grid-cols-3">
+      <CompanyInfo className="hidden xl:flex" />
 
-      <div className="flex justify-center">
+      <div className="flex xl:justify-center">
         <Logo />
       </div>
 
-      <SocialLinks />
+      <div className="flex w-full items-center justify-end gap-3.5">
+        <CompanyInfo className="xl:hidden" />
+        <SocialLinks />
+      </div>
     </div>
   </header>
 );

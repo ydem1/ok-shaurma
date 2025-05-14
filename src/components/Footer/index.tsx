@@ -1,11 +1,16 @@
 import { Logo } from "../Logo";
-import { SocialMediaLinks } from "./SocialMediaLinks";
+import { SocialLinks } from "./SocialLinks";
+import { WorkSchedule } from "./WorkSchedule";
 
 export const Footer = () => (
-  <footer className="rounded-t-30 p-7.5 border border-gray-base bg-white-base">
-    <div className="container flex items-center justify-between py-6">
-      <Logo />
-      <SocialMediaLinks />
+  <footer className="shadow-custom bg-white-base py-10">
+    <div className="container flex justify-between">
+      <div className="flex gap-12">
+        <Logo />
+        <SocialLinks />
+      </div>
+
+      <WorkSchedule />
     </div>
   </footer>
 );

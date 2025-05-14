@@ -10,6 +10,6 @@ interface Props {
 export const CompanyInfo: FC<Props> = ({ className }) => (
   <div className={cn("flex gap-7", className)}>
     <span className="hidden text-base font-bold xl:block">Хмельницький</span>
-    <Phone className="hidden xs:block" />
+    <Phone className="hidden sm:block" />
   </div>
 );

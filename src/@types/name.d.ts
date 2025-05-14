@@ -2,5 +2,4 @@
 
 export type IconName =
 	| "instagram"
-	| "react"
 	| "tik-tok";

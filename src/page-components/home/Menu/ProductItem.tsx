@@ -18,9 +18,7 @@ export const ProductItem: FC<IMenuItem> = ({
 
       <div className="mt-4 flex flex-col gap-2.5">
         <span className="text-xs text-gray-dark">{`${weight}г.`}</span>
-        <span className="text-xs text-gray-dark">{`${weight}г.`}</span>
         <span className="text-lg font-bold">{name}</span>
-        <span className="text-xs text-gray-dark">{description}</span>
         <span className="text-xs text-gray-dark">{description}</span>
 
         <div>

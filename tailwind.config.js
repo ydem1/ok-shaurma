@@ -20,6 +20,9 @@ module.exports = {
           base: "#FF5252",
         },
       },
+      fontSize: {
+        10: "10px",
+      },
       spacing: {
         12.5: "50px",
         15: "60px",

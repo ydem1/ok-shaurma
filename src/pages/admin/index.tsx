@@ -1,9 +1,9 @@
 import React, { FC } from "react";
-import { Login } from "src/page-components/admin/login";
+import { LoginForm } from "src/page-components/admin/LoginForm";
 
 const Admin: FC = () => (
   <div className="container">
-    <Login />
+    <LoginForm />
   </div>
 );
 

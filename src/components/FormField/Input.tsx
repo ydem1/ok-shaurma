@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
-import { useFormContext } from 'react-hook-form';
-import cn from 'classnames';
-import { IFormField } from '@/@types/form';
-import { FormField } from '.';
-import { TEXT_INPUT_STYLE_VARIANTS } from './constants';
-import { InputVariants, InputWheel } from './types';
+import React, { FC } from "react";
+import { useFormContext } from "react-hook-form";
+import cn from "classnames";
+import { IFormField } from "src/@types/form";
+import { FormField } from ".";
+import { TEXT_INPUT_STYLE_VARIANTS } from "./constants";
+import { InputVariants, InputWheel } from "./types";
 
 export const Input: FC<IFormField> = ({
   name,
@@ -28,7 +28,7 @@ export const Input: FC<IFormField> = ({
   const isShownError = Boolean(error && isSubmitted);
 
   const handleWheel = (e: InputWheel) => {
-    if (type === 'number') {
+    if (type === "number") {
       e.currentTarget.blur();
     }
   };

@@ -1,8 +1,8 @@
-import React, { FC, ReactNode } from 'react';
-import cn from 'classnames';
+import React, { FC, ReactNode } from "react";
+import cn from "classnames";
 
 const DEFAULT_ERROR_CLASSNAME =
-  'absolute bottom-0 right-0 py-0.5 z-10 translate-y-full text-10 font-semibold text-red-500'; //text-red-500 - temp
+  "absolute bottom-0 right-0 py-0.5 z-10 translate-y-full text-10 font-semibold text-red-500"; //text-red-500 - temp
 
 interface Props {
   children: ReactNode;
@@ -26,16 +26,16 @@ export const FormField: FC<Props> = ({
   return (
     <div
       className={cn(
-        'relative flex items-center border-b gap-2.5 border-black-medium dark:border-white-base',
-        className,
+        "border-black-medium relative flex items-center gap-2.5 border-b dark:border-white-base",
+        className
       )}
     >
       {label && (
         <label
           htmlFor={labelFor}
           className={cn(
-            'text-xl font-normal dark:text-white-base uppercase text-nowrap',
-            labelClassName,
+            "text-nowrap text-xl font-normal uppercase dark:text-white-base",
+            labelClassName
           )}
         >
           {label}

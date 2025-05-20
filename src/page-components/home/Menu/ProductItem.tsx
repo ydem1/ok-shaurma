@@ -12,8 +12,12 @@ export const ProductItem: FC<IMenuItem> = ({
 }) => {
   return (
     <article className="rounded-2xl bg-white-base px-4 pb-9 pt-4 shadow-custom">
-      <div>
-        <img className="w-full rounded-xl" src={imageTemp} alt={name} />
+      <div className="h-60">
+        <img
+          className="h-full w-full rounded-xl object-cover"
+          src={imageTemp}
+          alt={name}
+        />
       </div>
 
       <div className="mt-4 flex flex-col gap-2.5">

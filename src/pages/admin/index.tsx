@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { LoginForm } from "src/page-components/admin/LoginForm";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
 import { Loader } from "src/components/Loader";
 import { useAppDispatch, useAppSelector } from "src/hooks/redux";
-import { logout } from "src/store/admin/actions";
+import { chechAdminAsync, logout } from "src/store/admin/actions";
 import {
   selectIsAuthorized,
   selectIsLoadingAuthorized,
@@ -12,10 +12,14 @@ import {
 import { Sizes } from "src/@types/sizes";
 
 const Admin: FC = () => {
+  const dispatch = useAppDispatch();
+
   const isAuthorized = useAppSelector(selectIsAuthorized);
   const isLoading = useAppSelector(selectIsLoadingAuthorized);
 
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(chechAdminAsync());
+  }, []);
 
   if (isLoading) {
     return (

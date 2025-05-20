@@ -7,12 +7,14 @@ import {
 } from "./reducers";
 
 export interface IAdminState {
-  isLoading: boolean;
+  isLoadingLogin: boolean;
+  isLoadingAuthorized: boolean,
   isAuthorized: boolean;
 }
 
 export const initialState: IAdminState = {
-  isLoading: false,
+  isLoadingLogin: false,
+  isLoadingAuthorized: false,
   isAuthorized: false,
 };
 

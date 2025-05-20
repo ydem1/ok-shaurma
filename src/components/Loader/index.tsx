@@ -17,12 +17,3 @@ export const Loader: FC<Props> = ({ size = Sizes.XS, className }) => (
     )}
   />
 );
-
-// black: {
-//         primaty: "#151616",
-//       },
-
-//          gray: {
-//         base: "#F2F2F2",
-//         dark: "#6E6F84",
-//       },

@@ -8,30 +8,30 @@ type Reducer = (builder: ActionReducerMapBuilder<IAdminState>) => void;
 
 export const loginAdminReducer: Reducer = (builder) => {
   builder.addCase(loginAdminAsync.fulfilled, (state) => {
-    state.isLoading = false;
+    state.isLoadingLogin = false;
   });
 
   builder.addCase(loginAdminAsync.pending, (state) => {
-    state.isLoading = true;
+    state.isLoadingLogin = true;
   });
 
   builder.addCase(loginAdminAsync.rejected, (state) => {
-    state.isLoading = false;
+    state.isLoadingLogin = false;
   });
 };
 
 export const chechAdminReducer: Reducer = (builder) => {
   builder.addCase(chechAdminAsync.fulfilled, (state, action) => {
-    state.isLoading = false;
+    state.isLoadingAuthorized = false;
     state.isAuthorized = action.payload.isAuth || false;
   });
 
   builder.addCase(chechAdminAsync.pending, (state) => {
-    state.isLoading = true;
+    state.isLoadingAuthorized = true;
   });
 
   builder.addCase(chechAdminAsync.rejected, (state) => {
-    state.isLoading = false;
+    state.isLoadingAuthorized = false;
     state.isAuthorized = false;
   });
 };

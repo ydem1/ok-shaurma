@@ -3,9 +3,15 @@ import { RootState } from "..";
 
 export const selectAdminState = (state: RootState) => state.admin;
 
-export const selectIsLoading = createSelector(
+export const selectIsLoadingLogin = createSelector(
   selectAdminState,
-  (adminState) => adminState.isLoading
+  (adminState) => adminState.isLoadingLogin
+);
+
+
+export const selectIsLoadingAuthorized = createSelector(
+  selectAdminState,
+  (adminState) => adminState.isLoadingAuthorized
 );
 
 export const selectIsAuthorized = createSelector(

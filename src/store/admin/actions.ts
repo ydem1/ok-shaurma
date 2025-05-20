@@ -1,8 +1,7 @@
-// import { successfulResponses } from "@/constants/responses";
-// import { NotificationService } from "@/helpers/notifications";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import { instance } from "src/services/api-client";
+import { NotificationService } from "src/helpers/notifications";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "src/constants/cookiesKeys";
 import { IAuthTokens } from "src/@types/auth";
 
@@ -21,7 +20,7 @@ export const loginAdminAsync = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await instance.post<IAuthTokens>("/user/login/", {
+      const { data } = await instance.post<IAuthTokens>("/auth/login/", {
         email,
         password,
       });
@@ -29,10 +28,10 @@ export const loginAdminAsync = createAsyncThunk(
       Cookies.set(ACCESS_TOKEN, data.access_token);
       Cookies.set(REFRESH_TOKEN, data.refresh_token);
       onSuccess();
-      // NotificationService.success(successfulResponsesTrns.login);
+      NotificationService.success();
     } catch ({ response }) {
-      const errorText = response?.data?.error;
-      // NotificationService.error(errorText || errorResponsesTrns.login);
+      const errorText = response?.data?.message;
+      NotificationService.error(errorText);
       return rejectWithValue(errorText);
     }
   }

@@ -1,14 +1,14 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "..";
 
-export const selectCurrentUserState = (state: RootState) => state.admin;
+export const selectAdminState = (state: RootState) => state.admin;
 
 export const selectIsLoading = createSelector(
-  selectCurrentUserState,
+  selectAdminState,
   (adminState) => adminState.isLoading
 );
 
-export const selectCurrentIsAuthorized = createSelector(
-  selectCurrentUserState,
+export const selectIsAuthorized = createSelector(
+  selectAdminState,
   (adminState) => adminState.isAuthorized
 );

@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useRoutes } from "react-router-dom";
 import { Admin, Home, NotFound } from "src/pages";
+import { useAppDispatch } from "src/hooks/redux";
+import { chechAdminAsync } from "src/store/admin/actions";
 import { PATHNAMES } from "src/constants/routes";
 
 const ROUTES = [
@@ -19,6 +21,12 @@ const ROUTES = [
 ];
 
 const AppRoutes: FC = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(chechAdminAsync());
+  }, []);
+
   return useRoutes(ROUTES);
 };
 

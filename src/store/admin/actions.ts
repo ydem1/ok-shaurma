@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import { instance } from "src/services/api-client";
 import { NotificationService } from "src/helpers/notifications";
@@ -36,3 +36,25 @@ export const loginAdminAsync = createAsyncThunk(
     }
   }
 );
+
+interface IResponceAuthCheck {
+  message: string;
+  isAuth?: boolean;
+}
+
+export const chechAdminAsync = createAsyncThunk(
+  `${ADMIN_SLICE_NAME}/chech`,
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.get<IResponceAuthCheck>("auth/check/");
+
+      return data;
+    } catch ({ response }) {
+      const errorText = response?.data?.message;
+      NotificationService.error(errorText);
+      return rejectWithValue(errorText);
+    }
+  }
+);
+
+export const logout = createAction(`${ADMIN_SLICE_NAME}/logout`);

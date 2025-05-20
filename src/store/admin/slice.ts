@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ADMIN_SLICE_NAME } from "./actions";
-import { loginAdminReducer } from "./reducers";
+import {
+  chechAdminReducer,
+  loginAdminReducer,
+  logoutReducer,
+} from "./reducers";
 
 export interface IAdminState {
   isLoading: boolean;
@@ -18,5 +22,7 @@ export const { reducer: admin } = createSlice({
   reducers: {},
   extraReducers(builder) {
     loginAdminReducer(builder);
+    chechAdminReducer(builder);
+    logoutReducer(builder);
   },
 });

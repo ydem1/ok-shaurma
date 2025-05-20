@@ -17,7 +17,7 @@ export const addAccessToken: Interceptor = (config) => {
   const refreshToken = getRefreshToken();
 
   if (accessToken && !isTokenExpired(refreshToken)) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+    config.headers.Authorization = accessToken;
   }
 
   return config;

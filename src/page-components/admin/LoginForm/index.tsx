@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "src/components/FormField/Input";
 import { useAppDispatch, useAppSelector } from "src/hooks/redux";
-import { loginAdminAsync } from "src/store/admin/actions";
+import { chechAdminAsync, loginAdminAsync } from "src/store/admin/actions";
 import { selectIsLoading } from "src/store/admin/selectors";
 import {
   INITIAL_LOGIN_FORM_VALUES,
@@ -21,15 +21,15 @@ export const LoginForm: FC = () => {
     resolver: zodResolver(LOGIN_FORM_VALIDATION_SCHEMA),
   });
 
-  const onSubmit = (loginData: ILoginFormValues) => {
-    console.log(loginData);
+  const onSuccess = () => {
+    dispatch(chechAdminAsync());
+  };
 
+  const onSubmit = (loginData: ILoginFormValues) => {
     dispatch(
       loginAdminAsync({
         ...loginData,
-        onSuccess: () => {
-          console.log("onSuccess");
-        },
+        onSuccess,
       })
     );
   };

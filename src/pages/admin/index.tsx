@@ -1,7 +1,9 @@
 import React, { FC, useEffect } from "react";
+import { ListMenu } from "src/page-components/admin/ListMenu";
 import { LoginForm } from "src/page-components/admin/LoginForm";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
+import { PageWrapper } from "src/components/Layouts/PageWrapper";
 import { Loader } from "src/components/Loader";
 import { useAppDispatch, useAppSelector } from "src/hooks/redux";
 import { chechAdminAsync, logout } from "src/store/admin/actions";
@@ -30,24 +32,31 @@ const Admin: FC = () => {
   }
 
   return (
-    <div className="container">
-      {isAuthorized ? (
-        <div>
-          <p>Авторизований</p>
+    <PageWrapper isShownHeader={false} isShownFooter={false}>
+      <section className="container">
+        {isAuthorized ? (
+          <div>
+            <p>Авторизований</p>
 
-          <Button
-            variant={ButtonVariants.SECONDARY}
-            onClick={() => {
-              dispatch(logout());
-            }}
-          >
-            Вийти
-          </Button>
-        </div>
-      ) : (
-        <LoginForm />
-      )}
-    </div>
+            <div className="flex">
+              <div className="flex-1">ІНША ІНФОРМАЦІЯ</div>
+              <ListMenu className="flex-1" />
+            </div>
+
+            <Button
+              variant={ButtonVariants.SECONDARY}
+              onClick={() => {
+                dispatch(logout());
+              }}
+            >
+              Вийти
+            </Button>
+          </div>
+        ) : (
+          <LoginForm />
+        )}
+      </section>
+    </PageWrapper>
   );
 };
 

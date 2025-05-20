@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "src/components/Button";
+import { ButtonVariants } from "src/components/Button/types";
 import { Input } from "src/components/FormField/Input";
 import { useAppDispatch, useAppSelector } from "src/hooks/redux";
 import { chechAdminAsync, loginAdminAsync } from "src/store/admin/actions";
@@ -43,7 +45,15 @@ export const LoginForm: FC = () => {
         <div className="space-y-5">
           <Input name="email" type="text" placeholder="Логін" />
           <Input name="password" type="password" placeholder="Пароль" />
-          <button disabled={isLoading}>send</button>
+
+          <Button
+            className="w-full"
+            variant={ButtonVariants.PRIMARY}
+            isLoading={isLoading}
+            isDisabled={isLoading}
+          >
+            Увійти
+          </Button>
         </div>
       </form>
     </FormProvider>

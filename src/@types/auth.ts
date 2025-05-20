@@ -1,5 +1,5 @@
 export interface IAuthTokens {
-  access: string;
-  refresh: string;
+  message: string;
+  access_token: string;
+  refresh_token: string;
 }
-

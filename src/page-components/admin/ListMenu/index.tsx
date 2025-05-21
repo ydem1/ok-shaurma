@@ -21,9 +21,8 @@ export const ListMenu: FC<Props> = ({ className }) => {
     try {
       await deleteMenuItem(id).unwrap();
       NotificationService.success("Успішно видалено!");
-    } catch ({ response }) {
-      const errorText = response?.data?.message || "Помилка видалення";
-      NotificationService.error(errorText);
+    } catch {
+      NotificationService.error("Помилка видалення");
     }
   };
 

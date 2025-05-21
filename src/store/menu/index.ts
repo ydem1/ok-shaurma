@@ -17,7 +17,7 @@ export const menuApiSlice = createApi({
 
     deleteMenuItem: builder.mutation<void, string>({
       query: (id) => ({
-        url: `/men2u/${id}`,
+        url: `/menu/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["menu"],

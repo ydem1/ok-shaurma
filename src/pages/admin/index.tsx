@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { AddIMenuItemForm } from "src/page-components/admin/AddIMenuItemForm";
 import { ListMenu } from "src/page-components/admin/ListMenu";
 import { LoginForm } from "src/page-components/admin/LoginForm";
@@ -12,11 +12,18 @@ import {
   selectIsAuthorized,
   selectIsLoadingAuthorized,
 } from "src/store/admin/selectors";
+import { scrollToComponent } from "src/utils/scrollToComponent";
 import { IMenuItem } from "src/@types/menu-item";
 import { Sizes } from "src/@types/sizes";
 
 const Admin: FC = () => {
   const [editItem, setEditItem] = useState<IMenuItem | undefined>();
+  const editForm = useRef();
+
+  const handleEdit = (item: IMenuItem) => {
+    setEditItem(item);
+    scrollToComponent(editForm);
+  };
 
   const dispatch = useAppDispatch();
 
@@ -54,10 +61,10 @@ const Admin: FC = () => {
             <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
               <div className="space-y-5">
                 <h2 className="mb-2 text-xl font-semibold">Управління меню</h2>
-                <ListMenu handleEditItem={setEditItem} />
+                <ListMenu handleEditItem={handleEdit} />
               </div>
 
-              <div className="space-y-5">
+              <div className="space-y-5" ref={editForm}>
                 <p className="mb-2 text-xl font-semibold">
                   {editItem ? (
                     <span>

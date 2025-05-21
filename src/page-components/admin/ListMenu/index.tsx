@@ -10,7 +10,7 @@ import { Sizes } from "src/@types/sizes";
 
 interface Props {
   className?: string;
-  handleEditItem: React.Dispatch<React.SetStateAction<IMenuItem>>;
+  handleEditItem: (item: IMenuItem) => void;
 }
 
 export const ListMenu: FC<Props> = ({ className, handleEditItem }) => {

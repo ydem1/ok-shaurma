@@ -3,7 +3,7 @@ import { IMenuItem } from "src/@types/menu-item";
 // TODO delete temp image
 import imageTemp from "./temp.jpg";
 
-export const ProductItem: FC<IMenuItem> = ({
+export const ProductItem: FC<Omit<IMenuItem, "_id">> = ({
   name,
   // image,
   price,

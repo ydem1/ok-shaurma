@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ProductItem } from "src/page-components/home/Menu/ProductItem";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
 import { Input } from "src/components/FormField/Input";
@@ -35,6 +36,8 @@ export const AddIMenuItemForm: FC<Props> = ({
     resolver: zodResolver(ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA),
   });
 
+  const watchedFields = methods.watch();
+
   const handleReset = () => {
     methods.reset(INITIAL_ADD_MENU_ITEM_FORM_VALUES);
     clearEditItem();
@@ -43,8 +46,6 @@ export const AddIMenuItemForm: FC<Props> = ({
   const onSubmit = async (menuItemData: IAddIMenuItemFormValues) => {
     try {
       if (editItem) {
-        console.log(menuItemData);
-
         await updateMenuItem({
           _id: editItem._id,
           ...menuItemData,
@@ -90,6 +91,14 @@ export const AddIMenuItemForm: FC<Props> = ({
           <Input name="price" type="number" placeholder="Прайс" />
           <Input name="weight" type="number" placeholder="Вага" />
           <Input name="image" type="text" placeholder="Фото" />
+
+          <ProductItem
+            name={watchedFields.name}
+            description={watchedFields.description}
+            price={+watchedFields.price}
+            weight={+watchedFields.weight}
+            image={watchedFields.image}
+          />
 
           <div className="flex gap-10">
             <Button

@@ -36,7 +36,7 @@ const Admin: FC = () => {
     <PageWrapper isShownHeader={false} isShownFooter={false}>
       <section className="container py-20">
         {isAuthorized ? (
-          <div className="space-y-5">
+          <div className="space-y-20">
             <div className="flex items-center justify-between">
               <h1 className="text-6xl">Адмін панель</h1>
               <Button

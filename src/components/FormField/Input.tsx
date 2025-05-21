@@ -33,6 +33,23 @@ export const Input: FC<IFormField> = ({
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (type === "number") {
+      const allowedKeys = [
+        "Backspace",
+        "Tab",
+        "ArrowLeft",
+        "ArrowRight",
+        "Delete",
+      ];
+      const isDigit = /^\d$/.test(e.key);
+
+      if (!isDigit && !allowedKeys.includes(e.key)) {
+        e.preventDefault();
+      }
+    }
+  };
+
   return (
     <FormField
       label={label}
@@ -51,6 +68,7 @@ export const Input: FC<IFormField> = ({
         defaultValue={value}
         {...register(name)}
         onWheel={handleWheel}
+        onKeyDown={handleKeyDown}
       />
     </FormField>
   );

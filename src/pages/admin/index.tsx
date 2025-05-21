@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from "react";
+import { AddIMenuItemForm } from "src/page-components/admin/AddIMenuItemForm";
 import { ListMenu } from "src/page-components/admin/ListMenu";
 import { LoginForm } from "src/page-components/admin/LoginForm";
 import { Button } from "src/components/Button";
@@ -48,14 +49,16 @@ const Admin: FC = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-              <div>
+              <div className="space-y-5">
                 <h2 className="mb-2 text-xl font-semibold">Управління меню</h2>
                 <ListMenu />
               </div>
-              <div>
+
+              <div className="space-y-5">
                 <h2 className="mb-2 text-xl font-semibold">
                   Додати/Редагувати позицію
                 </h2>
+                <AddIMenuItemForm />
               </div>
             </div>
           </div>

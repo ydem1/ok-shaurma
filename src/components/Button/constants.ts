@@ -9,7 +9,7 @@ export const BUTTON_STYLE_VARIANTS = {
     DEFAULT_BUTTON_CLASSNAME
   ),
   [ButtonVariants.SECONDARY]: cn(
-    "bg-white-pink text-black-primaty border border-black-primaty/20 hover:bg-black-primaty/5",
+    "bg-white-base text-black-primaty border border-black-primaty/20 hover:bg-black-primaty/5",
     DEFAULT_BUTTON_CLASSNAME
   ),
 };

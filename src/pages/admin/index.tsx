@@ -33,24 +33,31 @@ const Admin: FC = () => {
 
   return (
     <PageWrapper isShownHeader={false} isShownFooter={false}>
-      <section className="container">
+      <section className="container py-20">
         {isAuthorized ? (
-          <div>
-            <p>Авторизований</p>
-
-            <div className="flex">
-              <div className="flex-1">ІНША ІНФОРМАЦІЯ</div>
-              <ListMenu className="flex-1" />
+          <div className="space-y-5">
+            <div className="flex items-center justify-between">
+              <h1 className="text-6xl">Адмін панель</h1>
+              <Button
+                className="text-xl"
+                variant={ButtonVariants.SECONDARY}
+                onClick={() => dispatch(logout())}
+              >
+                Вийти
+              </Button>
             </div>
 
-            <Button
-              variant={ButtonVariants.SECONDARY}
-              onClick={() => {
-                dispatch(logout());
-              }}
-            >
-              Вийти
-            </Button>
+            <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+              <div>
+                <h2 className="mb-2 text-xl font-semibold">Управління меню</h2>
+                <ListMenu />
+              </div>
+              <div>
+                <h2 className="mb-2 text-xl font-semibold">
+                  Додати/Редагувати позицію
+                </h2>
+              </div>
+            </div>
           </div>
         ) : (
           <LoginForm />

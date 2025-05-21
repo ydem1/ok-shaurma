@@ -5,7 +5,7 @@ import { Sizes } from "src/@types/sizes";
 import { ProductItem } from "./ProductItem";
 
 export const Menu: FC = () => {
-  const { data: menu, isFetching: isLoadingMenu } = useGetMenuQuery({});
+  const { data: menu, isFetching: isLoadingMenu } = useGetMenuQuery();
 
   return (
     <section className="container">

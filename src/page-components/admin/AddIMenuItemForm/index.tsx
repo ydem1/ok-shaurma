@@ -62,6 +62,7 @@ export const AddIMenuItemForm: FC = () => {
               className="w-full"
               type="reset"
               variant={ButtonVariants.SECONDARY}
+              onClick={() => methods.reset(INITIAL_ADD_MENU_ITEM_FORM_VALUES)}
             >
               Очистити
             </Button>

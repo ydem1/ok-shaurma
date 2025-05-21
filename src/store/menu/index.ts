@@ -32,6 +32,15 @@ export const menuApiSlice = createApi({
       invalidatesTags: ["menu"],
     }),
 
+    updateMenuItem: builder.mutation<void, IMenuItem>({
+      query: ({ _id, ...data }) => ({
+        url: `/menu/${_id}`,
+        method: "PUT",
+        data,
+      }),
+      invalidatesTags: ["menu"],
+    }),
+
     deleteMenuItem: builder.mutation<void, string>({
       query: (id) => ({
         url: `/menu/${id}`,
@@ -46,4 +55,5 @@ export const {
   useGetMenuQuery,
   useDeleteMenuItemMutation,
   useCreateMenuItemMutation,
+  useUpdateMenuItemMutation,
 } = menuApiSlice;

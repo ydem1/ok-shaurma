@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { AddIMenuItemForm } from "src/page-components/admin/AddIMenuItemForm";
 import { ListMenu } from "src/page-components/admin/ListMenu";
 import { LoginForm } from "src/page-components/admin/LoginForm";
@@ -12,9 +12,12 @@ import {
   selectIsAuthorized,
   selectIsLoadingAuthorized,
 } from "src/store/admin/selectors";
+import { IMenuItem } from "src/@types/menu-item";
 import { Sizes } from "src/@types/sizes";
 
 const Admin: FC = () => {
+  const [editItem, setEditItem] = useState<IMenuItem | undefined>();
+
   const dispatch = useAppDispatch();
 
   const isAuthorized = useAppSelector(selectIsAuthorized);
@@ -51,14 +54,27 @@ const Admin: FC = () => {
             <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
               <div className="space-y-5">
                 <h2 className="mb-2 text-xl font-semibold">Управління меню</h2>
-                <ListMenu />
+                <ListMenu handleEditItem={setEditItem} />
               </div>
 
               <div className="space-y-5">
-                <h2 className="mb-2 text-xl font-semibold">
-                  Додати/Редагувати позицію
-                </h2>
-                <AddIMenuItemForm />
+                <p className="mb-2 text-xl font-semibold">
+                  {editItem ? (
+                    <span>
+                      Редагувати позицію:{" "}
+                      <span className="text-bold underline">
+                        {editItem.name}
+                      </span>
+                    </span>
+                  ) : (
+                    "Додати позицію"
+                  )}
+                </p>
+
+                <AddIMenuItemForm
+                  editItem={editItem}
+                  clearEditItem={() => setEditItem(undefined)}
+                />
               </div>
             </div>
           </div>

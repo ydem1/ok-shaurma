@@ -5,13 +5,15 @@ import { Button } from "src/components/Button";
 import { Loader } from "src/components/Loader";
 import { useDeleteMenuItemMutation, useGetMenuQuery } from "src/store/menu";
 import { NotificationService } from "src/helpers/notifications";
+import { IMenuItem } from "src/@types/menu-item";
 import { Sizes } from "src/@types/sizes";
 
 interface Props {
   className?: string;
+  handleEditItem: React.Dispatch<React.SetStateAction<IMenuItem>>;
 }
 
-export const ListMenu: FC<Props> = ({ className }) => {
+export const ListMenu: FC<Props> = ({ className, handleEditItem }) => {
   const { data: menu, isFetching: isLoadingMenu } = useGetMenuQuery();
 
   const [deleteMenuItem, { isLoading: isLoadingDelete }] =
@@ -24,6 +26,10 @@ export const ListMenu: FC<Props> = ({ className }) => {
     } catch {
       NotificationService.error("Помилка видалення");
     }
+  };
+
+  const handleEdit = (editItem: IMenuItem) => {
+    handleEditItem(editItem);
   };
 
   return (
@@ -45,7 +51,7 @@ export const ListMenu: FC<Props> = ({ className }) => {
               <div>Ціна</div>
               <div className="text-right">Керування</div>
             </li>
-            {menu.map(({ _id, name, price, weight, description }) => (
+            {menu.map(({ _id, name, price, weight, description, image }) => (
               <li
                 key={_id}
                 className="grid grid-cols-[80px_2fr_2fr_4fr_auto_1fr] items-center gap-4 border-b p-5 last:border-none"
@@ -63,7 +69,20 @@ export const ListMenu: FC<Props> = ({ className }) => {
                 <div>{price}&#8372;</div>
 
                 <div className="flex items-center justify-end gap-3">
-                  <Button>✏️</Button>
+                  <Button
+                    onClick={() =>
+                      handleEdit({
+                        _id,
+                        name,
+                        price,
+                        weight,
+                        description,
+                        image,
+                      })
+                    }
+                  >
+                    ✏️
+                  </Button>
                   <Button
                     onClick={() => handleDelete(_id)}
                     isDisabled={isLoadingDelete}

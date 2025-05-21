@@ -1,42 +1,85 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
 import { Input } from "src/components/FormField/Input";
-import { useCreateMenuItemMutation } from "src/store/menu";
+import {
+  useCreateMenuItemMutation,
+  useUpdateMenuItemMutation,
+} from "src/store/menu";
 import { NotificationService } from "src/helpers/notifications";
+import { IMenuItem } from "src/@types/menu-item";
 import {
   ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA,
   INITIAL_ADD_MENU_ITEM_FORM_VALUES,
 } from "./constants";
 import { AddIMenuItemFormSchema, IAddIMenuItemFormValues } from "./types";
 
-export const AddIMenuItemForm: FC = () => {
-  const [createMenuItem, { isLoading }] = useCreateMenuItemMutation();
+interface Props {
+  editItem?: IMenuItem;
+  clearEditItem: () => void;
+}
+
+export const AddIMenuItemForm: FC<Props> = ({
+  editItem,
+  clearEditItem = () => {},
+}) => {
+  const [createMenuItem, { isLoading: isLoadingCreateMenuItem }] =
+    useCreateMenuItemMutation();
+  const [updateMenuItem, { isLoading: isLoadingUpdateMenuItem }] =
+    useUpdateMenuItemMutation();
 
   const methods = useForm<AddIMenuItemFormSchema>({
     defaultValues: INITIAL_ADD_MENU_ITEM_FORM_VALUES,
     resolver: zodResolver(ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA),
   });
 
+  const handleReset = () => {
+    methods.reset(INITIAL_ADD_MENU_ITEM_FORM_VALUES);
+    clearEditItem();
+  };
+
   const onSubmit = async (menuItemData: IAddIMenuItemFormValues) => {
     try {
-      await createMenuItem({
-        name: menuItemData.name,
-        description: menuItemData.description,
-        price: +menuItemData.price,
-        weight: +menuItemData.weight,
-        image: menuItemData.image,
-      }).unwrap();
+      if (editItem) {
+        console.log(menuItemData);
+
+        await updateMenuItem({
+          _id: editItem._id,
+          ...menuItemData,
+          price: +menuItemData.price,
+          weight: +menuItemData.weight,
+        }).unwrap();
+
+        NotificationService.success("Оновлено успішно!");
+
+        clearEditItem();
+      } else {
+        await createMenuItem({
+          ...menuItemData,
+          price: +menuItemData.price,
+          weight: +menuItemData.weight,
+        }).unwrap();
+
+        NotificationService.success("Створено успішно!");
+      }
 
       methods.reset(INITIAL_ADD_MENU_ITEM_FORM_VALUES);
-
-      NotificationService.success("Створено успішно!");
     } catch {
-      NotificationService.error("Помилка при створенні");
+      NotificationService.error("Помилка при збереженні");
     }
   };
+
+  useEffect(() => {
+    if (editItem) {
+      methods.reset({
+        ...editItem,
+        price: `${editItem.price}`,
+        weight: `${editItem.weight}`,
+      });
+    }
+  }, [editItem]);
 
   return (
     <FormProvider {...methods}>
@@ -52,17 +95,17 @@ export const AddIMenuItemForm: FC = () => {
             <Button
               className="w-full"
               variant={ButtonVariants.PRIMARY}
-              isLoading={isLoading}
-              isDisabled={isLoading}
+              isLoading={isLoadingCreateMenuItem || isLoadingUpdateMenuItem}
+              isDisabled={isLoadingCreateMenuItem || isLoadingUpdateMenuItem}
             >
-              Додати
+              {editItem ? "Редагувати" : "Додати"}
             </Button>
 
             <Button
               className="w-full"
               type="reset"
               variant={ButtonVariants.SECONDARY}
-              onClick={() => methods.reset(INITIAL_ADD_MENU_ITEM_FORM_VALUES)}
+              onClick={handleReset}
             >
               Очистити
             </Button>

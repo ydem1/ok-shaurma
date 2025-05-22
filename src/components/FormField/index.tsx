@@ -26,7 +26,7 @@ export const FormField: FC<Props> = ({
   return (
     <div
       className={cn(
-        "border-black-medium relative flex items-center gap-2.5 border-b dark:border-white-base",
+        "border-black-medium relative flex flex-col gap-2.5 border-b",
         className
       )}
     >
@@ -34,7 +34,7 @@ export const FormField: FC<Props> = ({
         <label
           htmlFor={labelFor}
           className={cn(
-            "text-nowrap text-xl font-normal uppercase dark:text-white-base",
+            "text-nowrap text-sm font-semibold uppercase",
             labelClassName
           )}
         >

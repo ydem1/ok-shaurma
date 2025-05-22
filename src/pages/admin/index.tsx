@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { AddIMenuItemForm } from "src/page-components/admin/AddIMenuItemForm";
+import { ContactForm } from "src/page-components/admin/ContactForm";
 import { ListMenu } from "src/page-components/admin/ListMenu";
 import { LoginForm } from "src/page-components/admin/LoginForm";
 import { Button } from "src/components/Button";
@@ -48,7 +49,7 @@ const Admin: FC = () => {
         {isAuthorized ? (
           <div className="space-y-20">
             <div className="flex items-center justify-between">
-              <h1 className="text-6xl">Адмін панель</h1>
+              <h1 className="text-6xl font-semibold">Адмін панель</h1>
               <Button
                 className="text-xl"
                 variant={ButtonVariants.SECONDARY}
@@ -60,7 +61,7 @@ const Admin: FC = () => {
 
             <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
               <div className="space-y-5">
-                <h2 className="mb-2 text-xl font-semibold">Управління меню</h2>
+                <p className="mb-2 text-xl font-semibold">Управління меню</p>
                 <ListMenu handleEditItem={handleEdit} />
               </div>
 
@@ -82,6 +83,14 @@ const Admin: FC = () => {
                   editItem={editItem}
                   clearEditItem={() => setEditItem(undefined)}
                 />
+              </div>
+
+              <div className="col-span-full space-y-5">
+                <p className="mb-2 text-xl font-semibold">
+                  Управління Контактною інформацією
+                </p>
+
+                <ContactForm />
               </div>
             </div>
           </div>

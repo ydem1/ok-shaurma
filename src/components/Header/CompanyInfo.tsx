@@ -1,15 +1,17 @@
 // TODO add api
 import { FC } from "react";
 import cn from "classnames";
+import { IContact } from "src/@types/contact";
 import { Phone } from "../Phone";
 
 interface Props {
   className?: string;
+  contact: IContact;
 }
 
-export const CompanyInfo: FC<Props> = ({ className }) => (
-  <div className={cn("flex gap-7", className)}>
+export const CompanyInfo: FC<Props> = ({ className, contact }) => (
+  <div className={cn("flex items-center gap-7", className)}>
     <span className="hidden text-base font-bold xl:block">Хмельницький</span>
-    <Phone className="hidden xs:block" />
+    <Phone contact={contact} />
   </div>
 );

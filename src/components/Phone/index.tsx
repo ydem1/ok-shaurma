@@ -37,7 +37,7 @@ export const Phone: FC<Props> = ({
         {formatPhoneNumber(phone_first_number)}
       </a>
 
-      <span className="text-sm">{`(${phone_first_label})`}</span>
+      <span className="text-sm">{phone_first_label}</span>
     </div>
 
     <div className="flex items-center gap-3">
@@ -48,7 +48,7 @@ export const Phone: FC<Props> = ({
         {formatPhoneNumber(phone_second_number)}
       </a>
 
-      <span className="text-sm">{`(${phone_second_label})`}</span>
+      <span className="text-sm">{phone_second_label}</span>
     </div>
   </div>
 );

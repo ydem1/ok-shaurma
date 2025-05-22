@@ -20,7 +20,6 @@ export const PageWrapper: FC<Props> = ({
   isShownFooter = true,
 }) => {
   const { data: contact } = useGetContactQuery();
-  // isFetching: isLoadingMenu
 
   return (
     <div className={cn("flex h-screen flex-col", className)}>

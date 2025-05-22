@@ -6,7 +6,6 @@ export const SOCIAL_LINKS = (
 ): ILink[] => [
   {
     id: 1,
-    // href: "https://www.instagram.com/ok_shawarma1/",
     href: instagram_link,
     icon: "instagram",
     label: "Instagram",
@@ -14,7 +13,6 @@ export const SOCIAL_LINKS = (
   {
     id: 2,
     icon: "tik-tok",
-    // href: "https://www.tiktok.com/@_ok_shaurma11",
     href: tik_tok_link,
     label: "Tik Tok",
   },

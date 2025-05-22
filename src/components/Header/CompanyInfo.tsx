@@ -1,4 +1,3 @@
-// TODO add api
 import { FC } from "react";
 import cn from "classnames";
 import { IContact } from "src/@types/contact";

@@ -5,11 +5,11 @@ import { IContact } from "src/@types/contact";
 export const formatPhoneNumber = (phone: string): string => {
   if (!phone || phone.length !== 12) return phone;
 
-  const country = phone.slice(0, 2); // 38
-  const operator = phone.slice(2, 5); // 068
-  const firstPart = phone.slice(5, 8); // 850
-  const secondPart = phone.slice(8, 10); // 50
-  const thirdPart = phone.slice(10, 12); // 90
+  const country = phone.slice(0, 2);
+  const operator = phone.slice(2, 5);
+  const firstPart = phone.slice(5, 8);
+  const secondPart = phone.slice(8, 10);
+  const thirdPart = phone.slice(10, 12);
 
   return `+${country} ${operator} ${firstPart} ${secondPart} ${thirdPart}`;
 };

@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProductItem } from "src/page-components/home/Menu/ProductItem";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
 import { Input } from "src/components/FormField/Input";
@@ -15,6 +14,7 @@ import {
   ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA,
   INITIAL_ADD_MENU_ITEM_FORM_VALUES,
 } from "./constants";
+import { PreviewProductItem } from "./PreviewProductItem";
 import { AddIMenuItemFormSchema, IAddIMenuItemFormValues } from "./types";
 
 interface Props {
@@ -45,7 +45,6 @@ export const AddIMenuItemForm: FC<Props> = ({
 
   const onSubmit = async (menuItemData: IAddIMenuItemFormValues) => {
     try {
-      console.log(menuItemData.image);
       const formData = new FormData();
       formData.append("name", menuItemData.name);
       formData.append("description", menuItemData.description);
@@ -53,7 +52,7 @@ export const AddIMenuItemForm: FC<Props> = ({
       formData.append("weight", menuItemData.weight.toString());
 
       if (menuItemData.image) {
-        formData.append("image", menuItemData.image); // <-- важливо
+        formData.append("image", menuItemData.image);
       }
       if (editItem) {
         await updateMenuItem({ _id: editItem._id, data: formData }).unwrap();
@@ -79,7 +78,7 @@ export const AddIMenuItemForm: FC<Props> = ({
         weight: `${editItem.weight}`,
       });
     }
-  }, [editItem]);
+  }, [editItem, methods]);
 
   return (
     <FormProvider {...methods}>
@@ -91,7 +90,7 @@ export const AddIMenuItemForm: FC<Props> = ({
           <Input name="weight" type="number" placeholder="Вага" />
           <Input name="image" type="file" placeholder="Фото" />
 
-          <ProductItem
+          <PreviewProductItem
             name={watchedFields.name}
             description={watchedFields.description}
             price={+watchedFields.price}

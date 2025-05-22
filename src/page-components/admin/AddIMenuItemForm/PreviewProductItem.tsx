@@ -1,20 +1,30 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { getImageUrl } from "src/utils/getImageUrl";
 import { IMenuItem } from "src/@types/menu-item";
-import imageTemp from "./temp.jpg";
 
-export const ProductItem: FC<Omit<IMenuItem, "_id">> = ({
+interface ProductItemProps extends Omit<IMenuItem, "_id" | "image"> {
+  image: File | string | null;
+}
+
+export const PreviewProductItem: FC<ProductItemProps> = ({
   name,
   image,
   price,
   weight,
   description,
 }) => {
-  const [previewSrc, setPreviewSrc] = useState<string>(getImageUrl(image));
+  const [previewSrc, setPreviewSrc] = useState<string>();
 
-  const handleError = () => {
-    setPreviewSrc(imageTemp);
-  };
+  useEffect(() => {
+    if (image instanceof File) {
+      const objectUrl = URL.createObjectURL(image);
+      setPreviewSrc(objectUrl);
+
+      return () => URL.revokeObjectURL(objectUrl);
+    } else if (typeof image === "string" && image.length > 0) {
+      setPreviewSrc(getImageUrl(image));
+    }
+  }, [image]);
 
   return (
     <article className="rounded-2xl bg-white-base px-4 pb-9 pt-4 shadow-custom">
@@ -23,7 +33,6 @@ export const ProductItem: FC<Omit<IMenuItem, "_id">> = ({
           className="h-full w-full rounded-xl object-cover"
           src={previewSrc}
           alt={name}
-          onError={handleError}
         />
       </div>
 

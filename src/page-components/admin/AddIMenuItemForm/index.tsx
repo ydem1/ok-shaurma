@@ -45,24 +45,23 @@ export const AddIMenuItemForm: FC<Props> = ({
 
   const onSubmit = async (menuItemData: IAddIMenuItemFormValues) => {
     try {
-      if (editItem) {
-        await updateMenuItem({
-          _id: editItem._id,
-          ...menuItemData,
-          price: +menuItemData.price,
-          weight: +menuItemData.weight,
-        }).unwrap();
+      console.log(menuItemData.image);
+      const formData = new FormData();
+      formData.append("name", menuItemData.name);
+      formData.append("description", menuItemData.description);
+      formData.append("price", menuItemData.price.toString());
+      formData.append("weight", menuItemData.weight.toString());
 
+      if (menuItemData.image) {
+        formData.append("image", menuItemData.image); // <-- важливо
+      }
+      if (editItem) {
+        await updateMenuItem({ _id: editItem._id, data: formData }).unwrap();
         NotificationService.success("Оновлено успішно!");
 
         clearEditItem();
       } else {
-        await createMenuItem({
-          ...menuItemData,
-          price: +menuItemData.price,
-          weight: +menuItemData.weight,
-        }).unwrap();
-
+        await createMenuItem(formData).unwrap();
         NotificationService.success("Створено успішно!");
       }
 
@@ -90,7 +89,7 @@ export const AddIMenuItemForm: FC<Props> = ({
           <Input name="description" type="text" placeholder="Опис" />
           <Input name="price" type="number" placeholder="Прайс" />
           <Input name="weight" type="number" placeholder="Вага" />
-          <Input name="image" type="text" placeholder="Фото" />
+          <Input name="image" type="file" placeholder="Фото" />
 
           <ProductItem
             name={watchedFields.name}

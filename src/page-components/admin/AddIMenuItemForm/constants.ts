@@ -7,7 +7,9 @@ export const ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA = z.object({
   description: REQUIRED_VALIDATION_SCHEMA("Опис обов'язковий"),
   price: REQUIRED_VALIDATION_SCHEMA("Ціна обов'язкова"),
   weight: REQUIRED_VALIDATION_SCHEMA("Вага обов'язкова"),
-  image: REQUIRED_VALIDATION_SCHEMA("Фото обов'язкове"),
+  image: z.any().refine((file) => file instanceof File || file === undefined, {
+    message: "Фото повинно бути файлом",
+  }),
 });
 
 export const INITIAL_ADD_MENU_ITEM_FORM_VALUES: IAddIMenuItemFormValues = {
@@ -15,5 +17,5 @@ export const INITIAL_ADD_MENU_ITEM_FORM_VALUES: IAddIMenuItemFormValues = {
   description: "",
   price: "",
   weight: "",
-  image: "",
+  image: undefined,
 };

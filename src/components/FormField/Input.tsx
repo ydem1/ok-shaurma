@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import cn from "classnames";
 import { IFormField } from "src/@types/form";
 import { FormField } from ".";
@@ -19,6 +19,7 @@ export const Input: FC<IFormField> = ({
 }) => {
   const {
     register,
+    control,
     formState: { errors, isSubmitted },
     getValues,
   } = useFormContext();
@@ -49,6 +50,39 @@ export const Input: FC<IFormField> = ({
       }
     }
   };
+
+  if (type === "file") {
+    return (
+      <FormField
+        label={label}
+        error={error}
+        className={fieldClassName}
+        isShownError={isShownError}
+        labelClassName={labelClassName}
+        labelFor={name}
+      >
+        <Controller
+          control={control}
+          name={name}
+          render={({ field: { onChange, ref } }) => (
+            <input
+              id={name}
+              type="file"
+              accept="image/*"
+              className={cn(TEXT_INPUT_STYLE_VARIANTS[variant], className)}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  onChange(file);
+                }
+              }}
+              ref={ref}
+            />
+          )}
+        />
+      </FormField>
+    );
+  }
 
   return (
     <FormField

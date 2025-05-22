@@ -2,14 +2,6 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { axiosBaseQuery } from "src/services/axiosBaseQuery";
 import { IMenuItem } from "src/@types/menu-item";
 
-interface CreateMenuItem {
-  name: string;
-  description: string;
-  price: number;
-  weight: number;
-  image: string;
-}
-
 export const menuApiSlice = createApi({
   reducerPath: "menu",
   baseQuery: axiosBaseQuery(),
@@ -23,7 +15,7 @@ export const menuApiSlice = createApi({
       providesTags: ["menu"],
     }),
 
-    createMenuItem: builder.mutation<IMenuItem, CreateMenuItem>({
+    createMenuItem: builder.mutation<IMenuItem, FormData>({
       query: (data) => ({
         url: "/menu/",
         method: "POST",
@@ -32,7 +24,7 @@ export const menuApiSlice = createApi({
       invalidatesTags: ["menu"],
     }),
 
-    updateMenuItem: builder.mutation<void, IMenuItem>({
+    updateMenuItem: builder.mutation<void, { _id: string; data: FormData }>({
       query: ({ _id, ...data }) => ({
         url: `/menu/${_id}`,
         method: "PUT",

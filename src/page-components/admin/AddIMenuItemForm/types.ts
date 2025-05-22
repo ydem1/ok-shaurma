@@ -6,7 +6,7 @@ export interface IAddIMenuItemFormValues {
   description: string;
   price: string;
   weight: string;
-  image: string;
+  image: File;
 }
 
 export type AddIMenuItemFormSchema = z.infer<

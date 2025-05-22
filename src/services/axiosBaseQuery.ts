@@ -15,12 +15,20 @@ export const axiosBaseQuery =
   > =>
   async ({ url, method, data, params }) => {
     try {
+      const headers: Record<string, string> = {};
+
+      if (!(data instanceof FormData)) {
+        headers["Content-Type"] = "application/json";
+      }
+
       const result = await instance({
         url,
         method,
         data,
         params,
+        headers,
       });
+
       return { data: result.data };
     } catch (axiosError) {
       const err = axiosError as AxiosError;

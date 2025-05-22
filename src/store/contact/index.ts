@@ -16,7 +16,7 @@ export const contactApiSlice = createApi({
       providesTags: ["contact"],
     }),
 
-    updateContactItem: builder.mutation<void, IContactFormValues>({
+    updateContact: builder.mutation<void, IContactFormValues>({
       query: (data) => ({
         url: "/contact/",
         method: "POST",
@@ -27,5 +27,5 @@ export const contactApiSlice = createApi({
   }),
 });
 
-export const { useGetContactQuery, useUpdateContactItemMutation } =
+export const { useGetContactQuery, useUpdateContactMutation } =
   contactApiSlice;

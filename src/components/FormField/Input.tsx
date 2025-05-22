@@ -64,6 +64,7 @@ export const Input: FC<IFormField> = ({
         className={cn(TEXT_INPUT_STYLE_VARIANTS[variant], className)}
         placeholder={placeholder}
         readOnly={readOnly}
+        disabled={readOnly}
         type={type}
         defaultValue={value}
         {...register(name)}

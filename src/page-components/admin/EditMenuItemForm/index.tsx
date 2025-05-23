@@ -1,18 +1,19 @@
 import React, { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
 import { Input } from "src/components/FormField/Input";
+import { InputFile } from "src/components/FormField/InputFile";
 import { useUpdateMenuItemMutation } from "src/store/menu";
 import { NotificationService } from "src/helpers/notifications";
 import { IMenuItem } from "src/@types/menu-item";
+import { PreviewProductItem } from "../PreviewProductItem";
 import {
   EDIT_MENU_ITEM_FORM_VALIDATION_SCHEMA,
   INITIAL_EDIT_MENU_ITEM_FORM_VALUES,
 } from "./constants";
-import { PreviewProductItem } from "../PreviewProductItem";
-import { IEditIMenuItemFormValues, IEditMenuItemFormSchema } from "./types";
+import { IEditIMenuItemFormValues } from "./types";
 
 interface Props {
   editItem: IMenuItem;
@@ -26,9 +27,9 @@ export const EditMenuItemForm: FC<Props> = ({
   const [updateMenuItem, { isLoading: isLoadingUpdateMenuItem }] =
     useUpdateMenuItemMutation();
 
-  const methods = useForm<IEditMenuItemFormSchema>({
+  const methods = useForm<IEditIMenuItemFormValues>({
     defaultValues: INITIAL_EDIT_MENU_ITEM_FORM_VALUES,
-    resolver: zodResolver(EDIT_MENU_ITEM_FORM_VALIDATION_SCHEMA),
+    resolver: yupResolver(EDIT_MENU_ITEM_FORM_VALIDATION_SCHEMA),
   });
 
   const watchedFields = methods.watch();
@@ -61,10 +62,13 @@ export const EditMenuItemForm: FC<Props> = ({
   };
 
   useEffect(() => {
+    const { name, description, price, weight } = editItem;
+
     methods.reset({
-      ...editItem,
-      price: `${editItem.price}`,
-      weight: `${editItem.weight}`,
+      name,
+      description,
+      price: `${price}`,
+      weight: `${weight}`,
     });
   }, [editItem, methods]);
 
@@ -76,14 +80,21 @@ export const EditMenuItemForm: FC<Props> = ({
           <Input name="description" type="text" placeholder="Опис" />
           <Input name="price" type="number" placeholder="Прайс" />
           <Input name="weight" type="number" placeholder="Вага" />
-          <Input name="image" type="file" placeholder="Фото" />
+          <InputFile name="image" placeholder="Фото" />
 
           <PreviewProductItem
+            key={
+              typeof watchedFields.image === "string"
+                ? watchedFields.image
+                : watchedFields.image instanceof File
+                  ? watchedFields.image.name + watchedFields.image.lastModified
+                  : "no-image"
+            }
             name={watchedFields.name}
             description={watchedFields.description}
             price={+watchedFields.price}
             weight={+watchedFields.weight}
-            image={watchedFields.image}
+            image={watchedFields.image || editItem.image}
           />
 
           <div className="flex gap-10">

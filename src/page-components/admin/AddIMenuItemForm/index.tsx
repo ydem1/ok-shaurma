@@ -1,6 +1,6 @@
 import React, { FC, useRef } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
 import { Input } from "src/components/FormField/Input";
@@ -12,7 +12,7 @@ import {
   ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA,
   INITIAL_ADD_MENU_ITEM_FORM_VALUES,
 } from "./constants";
-import { AddIMenuItemFormSchema, IAddIMenuItemFormValues } from "./types";
+import { IAddIMenuItemFormValues } from "./types";
 
 export const AddIMenuItemForm: FC = () => {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
@@ -20,9 +20,9 @@ export const AddIMenuItemForm: FC = () => {
   const [createMenuItem, { isLoading: isLoadingCreateMenuItem }] =
     useCreateMenuItemMutation();
 
-  const methods = useForm<AddIMenuItemFormSchema>({
+  const methods = useForm<IAddIMenuItemFormValues>({
     defaultValues: INITIAL_ADD_MENU_ITEM_FORM_VALUES,
-    resolver: zodResolver(ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA),
+    resolver: yupResolver(ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA),
   });
 
   const watchedFields = useWatch({ control: methods.control });

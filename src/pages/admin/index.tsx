@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { AddIMenuItemForm } from "src/page-components/admin/AddIMenuItemForm";
 import { ContactForm } from "src/page-components/admin/ContactForm";
+import { EditMenuItemForm } from "src/page-components/admin/EditMenuItemForm";
 import { ListMenu } from "src/page-components/admin/ListMenu";
 import { LoginForm } from "src/page-components/admin/LoginForm";
 import { Button } from "src/components/Button";
@@ -26,6 +27,10 @@ const Admin: FC = () => {
     scrollToComponent(editForm);
   };
 
+  const handleCloseEdit = () => {
+    setEditItem(undefined);
+  };
+
   const dispatch = useAppDispatch();
 
   const isAuthorized = useAppSelector(selectIsAuthorized);
@@ -33,7 +38,7 @@ const Admin: FC = () => {
 
   useEffect(() => {
     dispatch(chechAdminAsync());
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return (
@@ -66,23 +71,37 @@ const Admin: FC = () => {
               </div>
 
               <div className="space-y-5" ref={editForm}>
-                <p className="mb-2 text-xl font-semibold">
+                <div className="mb-2 text-xl font-semibold">
                   {editItem ? (
-                    <span>
-                      Редагувати позицію:{" "}
-                      <span className="text-bold underline">
-                        {editItem.name}
-                      </span>
-                    </span>
-                  ) : (
-                    "Додати позицію"
-                  )}
-                </p>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span>Редагувати позицію: </span>
+                        <span className="text-bold underline">
+                          {editItem.name}
+                        </span>
+                      </div>
 
-                <AddIMenuItemForm
-                  editItem={editItem}
-                  clearEditItem={() => setEditItem(undefined)}
-                />
+                      <Button
+                        className="text-xl"
+                        variant={ButtonVariants.SECONDARY}
+                        onClick={handleCloseEdit}
+                      >
+                        Додати нову позицію
+                      </Button>
+                    </div>
+                  ) : (
+                    <p>Додати позицію</p>
+                  )}
+                </div>
+
+                {!editItem ? (
+                  <AddIMenuItemForm />
+                ) : (
+                  <EditMenuItemForm
+                    editItem={editItem}
+                    clearEditItem={handleCloseEdit}
+                  />
+                )}
               </div>
 
               <div className="col-span-full space-y-5">

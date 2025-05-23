@@ -29,11 +29,17 @@ export const PreviewProductItem: FC<ProductItemProps> = ({
   return (
     <article className="rounded-2xl bg-white-base px-4 pb-9 pt-4 shadow-custom">
       <div className="h-60">
-        <img
-          className="h-full w-full rounded-xl object-cover"
-          src={previewSrc}
-          alt={name}
-        />
+        {previewSrc ? (
+          <img
+            className="h-full w-full rounded-xl object-cover"
+            src={previewSrc}
+            alt={name}
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center rounded-xl bg-gray-100 text-sm text-gray-400">
+            Попередній перегляд відсутній
+          </div>
+        )}
       </div>
 
       <div className="mt-4 flex flex-col gap-2.5">

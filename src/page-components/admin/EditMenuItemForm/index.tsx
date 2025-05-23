@@ -1,43 +1,44 @@
-import React, { FC, useRef } from "react";
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import React, { FC, useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
 import { Input } from "src/components/FormField/Input";
-import { InputFile } from "src/components/FormField/InputFile";
-import { useCreateMenuItemMutation } from "src/store/menu";
+import { useUpdateMenuItemMutation } from "src/store/menu";
 import { NotificationService } from "src/helpers/notifications";
-import { PreviewProductItem } from "../PreviewProductItem";
+import { IMenuItem } from "src/@types/menu-item";
 import {
-  ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA,
-  INITIAL_ADD_MENU_ITEM_FORM_VALUES,
+  EDIT_MENU_ITEM_FORM_VALIDATION_SCHEMA,
+  INITIAL_EDIT_MENU_ITEM_FORM_VALUES,
 } from "./constants";
-import { AddIMenuItemFormSchema, IAddIMenuItemFormValues } from "./types";
+import { PreviewProductItem } from "../PreviewProductItem";
+import { IEditIMenuItemFormValues, IEditMenuItemFormSchema } from "./types";
 
-export const AddIMenuItemForm: FC = () => {
-  const imageInputRef = useRef<HTMLInputElement | null>(null);
+interface Props {
+  editItem: IMenuItem;
+  clearEditItem: () => void;
+}
 
-  const [createMenuItem, { isLoading: isLoadingCreateMenuItem }] =
-    useCreateMenuItemMutation();
+export const EditMenuItemForm: FC<Props> = ({
+  editItem,
+  clearEditItem = () => {},
+}) => {
+  const [updateMenuItem, { isLoading: isLoadingUpdateMenuItem }] =
+    useUpdateMenuItemMutation();
 
-  const methods = useForm<AddIMenuItemFormSchema>({
-    defaultValues: INITIAL_ADD_MENU_ITEM_FORM_VALUES,
-    resolver: zodResolver(ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA),
+  const methods = useForm<IEditMenuItemFormSchema>({
+    defaultValues: INITIAL_EDIT_MENU_ITEM_FORM_VALUES,
+    resolver: zodResolver(EDIT_MENU_ITEM_FORM_VALIDATION_SCHEMA),
   });
 
-  const watchedFields = useWatch({ control: methods.control });
+  const watchedFields = methods.watch();
 
   const handleReset = () => {
-    methods.reset({
-      ...INITIAL_ADD_MENU_ITEM_FORM_VALUES,
-    });
-
-    if (imageInputRef.current) {
-      imageInputRef.current.value = "";
-    }
+    methods.reset(INITIAL_EDIT_MENU_ITEM_FORM_VALUES);
+    clearEditItem();
   };
 
-  const onSubmit = async (menuItemData: IAddIMenuItemFormValues) => {
+  const onSubmit = async (menuItemData: IEditIMenuItemFormValues) => {
     try {
       const formData = new FormData();
       formData.append("name", menuItemData.name);
@@ -48,15 +49,24 @@ export const AddIMenuItemForm: FC = () => {
       if (menuItemData.image) {
         formData.append("image", menuItemData.image);
       }
+      await updateMenuItem({ _id: editItem._id, data: formData }).unwrap();
+      NotificationService.success("Оновлено успішно!");
 
-      await createMenuItem(formData).unwrap();
-      NotificationService.success("Створено успішно!");
+      clearEditItem();
 
-      handleReset();
+      methods.reset(INITIAL_EDIT_MENU_ITEM_FORM_VALUES);
     } catch {
-      NotificationService.error("Помилка при cтворені");
+      NotificationService.error("Помилка при збереженні");
     }
   };
+
+  useEffect(() => {
+    methods.reset({
+      ...editItem,
+      price: `${editItem.price}`,
+      weight: `${editItem.weight}`,
+    });
+  }, [editItem, methods]);
 
   return (
     <FormProvider {...methods}>
@@ -66,16 +76,9 @@ export const AddIMenuItemForm: FC = () => {
           <Input name="description" type="text" placeholder="Опис" />
           <Input name="price" type="number" placeholder="Прайс" />
           <Input name="weight" type="number" placeholder="Вага" />
-          <InputFile name="image" placeholder="Фото" ref={imageInputRef} />
+          <Input name="image" type="file" placeholder="Фото" />
 
           <PreviewProductItem
-            key={
-              typeof watchedFields.image === "string"
-                ? watchedFields.image
-                : watchedFields.image instanceof File
-                  ? watchedFields.image.name + watchedFields.image.lastModified // або просто `.name`
-                  : "no-image"
-            }
             name={watchedFields.name}
             description={watchedFields.description}
             price={+watchedFields.price}
@@ -87,10 +90,10 @@ export const AddIMenuItemForm: FC = () => {
             <Button
               className="w-full"
               variant={ButtonVariants.PRIMARY}
-              isLoading={isLoadingCreateMenuItem}
-              isDisabled={isLoadingCreateMenuItem}
+              isLoading={isLoadingUpdateMenuItem}
+              isDisabled={isLoadingUpdateMenuItem}
             >
-              Додати
+              Редагувати
             </Button>
 
             <Button

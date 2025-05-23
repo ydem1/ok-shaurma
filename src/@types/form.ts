@@ -3,7 +3,7 @@ import { InputVariants } from "src/components/FormField/types";
 
 type InputType = Extract<
   HTMLInputTypeAttribute,
-  "text" | "password" | "email" | "number" | "tel" | "file"
+  "text" | "password" | "email" | "number" | "tel"
 >;
 
 export interface IFormField {

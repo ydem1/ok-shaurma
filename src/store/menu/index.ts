@@ -25,9 +25,9 @@ export const menuApiSlice = createApi({
     }),
 
     updateMenuItem: builder.mutation<void, { _id: string; data: FormData }>({
-      query: ({ _id, ...data }) => ({
+      query: ({ _id, data }) => ({
         url: `/menu/${_id}`,
-        method: "PUT",
+        method: "POST",
         data,
       }),
       invalidatesTags: ["menu"],

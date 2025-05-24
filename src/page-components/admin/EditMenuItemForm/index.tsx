@@ -50,6 +50,7 @@ export const EditMenuItemForm: FC<Props> = ({
       if (menuItemData.image) {
         formData.append("image", menuItemData.image);
       }
+
       await updateMenuItem({ _id: editItem._id, data: formData }).unwrap();
       NotificationService.success("Оновлено успішно!");
 

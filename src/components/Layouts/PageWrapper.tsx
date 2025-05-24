@@ -1,5 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import cn from "classnames";
+import { useGetContactQuery } from "src/store/contact";
 import { Footer } from "../Footer";
 import { Header } from "../Header";
 
@@ -17,10 +18,14 @@ export const PageWrapper: FC<Props> = ({
   mainClassName,
   isShownHeader = true,
   isShownFooter = true,
-}) => (
-  <div className={cn("flex h-screen flex-col", className)}>
-    {isShownHeader && <Header />}
-    <main className={cn("flex-1", mainClassName)}>{children}</main>
-    {isShownFooter && <Footer />}
-  </div>
-);
+}) => {
+  const { data: contact } = useGetContactQuery();
+
+  return (
+    <div className={cn("flex h-screen flex-col", className)}>
+      {isShownHeader && <Header {...contact} />}
+      <main className={cn("flex-1", mainClassName)}>{children}</main>
+      {isShownFooter && <Footer {...contact} />}
+    </div>
+  );
+};

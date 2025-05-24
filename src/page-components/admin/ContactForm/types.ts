@@ -1,6 +1,3 @@
-import { z } from "zod";
-import { CONTACT_FORM_VALIDATION_SCHEMA } from "./constants";
-
 export interface IContactFormValues {
   tik_tok_link: string;
   instagram_link: string;
@@ -11,7 +8,3 @@ export interface IContactFormValues {
   schedule: string;
   address: string;
 }
-
-export type ContactFormValuesSchema = z.infer<
-  typeof CONTACT_FORM_VALIDATION_SCHEMA
->;

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
 import { Input } from "src/components/FormField/Input";
@@ -11,16 +11,16 @@ import {
   INITIAL_LOGIN_FORM_VALUES,
   LOGIN_FORM_VALIDATION_SCHEMA,
 } from "./constants";
-import { ILoginFormValues, LoginFormSchema } from "./types";
+import { ILoginFormValues } from "./types";
 
 export const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
 
   const isLoading = useAppSelector(selectIsLoadingLogin);
 
-  const methods = useForm<LoginFormSchema>({
+  const methods = useForm<ILoginFormValues>({
     defaultValues: INITIAL_LOGIN_FORM_VALUES,
-    resolver: zodResolver(LOGIN_FORM_VALIDATION_SCHEMA),
+    resolver: yupResolver(LOGIN_FORM_VALIDATION_SCHEMA),
   });
 
   const onSuccess = () => {

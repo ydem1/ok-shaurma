@@ -1,8 +1,8 @@
 import { REQUIRED_VALIDATION_SCHEMA } from "src/validation";
-import { z } from "zod";
+import * as Yup from "yup";
 import { IContactFormValues } from "./types";
 
-export const CONTACT_FORM_VALIDATION_SCHEMA = z.object({
+export const CONTACT_FORM_VALIDATION_SCHEMA = Yup.object().shape({
   tik_tok_link: REQUIRED_VALIDATION_SCHEMA("Посилання на тік ток обов'язкове"),
   instagram_link: REQUIRED_VALIDATION_SCHEMA("Посилання на інстаграм обов'язкове"),
   phone_first_label: REQUIRED_VALIDATION_SCHEMA("Назва заклада для першого телефона обов'язкова"),

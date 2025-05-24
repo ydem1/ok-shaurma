@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
 import { Input } from "src/components/FormField/Input";
@@ -13,7 +13,7 @@ import {
   CONTACT_FORM_VALIDATION_SCHEMA,
   INITIAL_CONTACT_FORM_VALUES,
 } from "./constants";
-import { ContactFormValuesSchema, IContactFormValues } from "./types";
+import { IContactFormValues } from "./types";
 
 export const ContactForm: FC = () => {
   const { data: contact } = useGetContactQuery();
@@ -21,9 +21,9 @@ export const ContactForm: FC = () => {
   const [updateContact, { isLoading }] = useUpdateContactMutation();
   const [isEditable, setIsEditable] = useState(false);
 
-  const methods = useForm<ContactFormValuesSchema>({
+  const methods = useForm<IContactFormValues>({
     defaultValues: INITIAL_CONTACT_FORM_VALUES,
-    resolver: zodResolver(CONTACT_FORM_VALIDATION_SCHEMA),
+    resolver: yupResolver(CONTACT_FORM_VALIDATION_SCHEMA),
   });
 
   const onSubmit = async (contactData: IContactFormValues) => {

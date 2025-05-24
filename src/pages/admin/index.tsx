@@ -67,7 +67,10 @@ const Admin: FC = () => {
             <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
               <div className="space-y-5">
                 <p className="mb-2 text-xl font-semibold">Управління меню</p>
-                <ListMenu handleEditItem={handleEdit} />
+                <ListMenu
+                  handleEditItem={handleEdit}
+                  onDelete={handleCloseEdit}
+                />
               </div>
 
               <div className="space-y-5" ref={editForm}>

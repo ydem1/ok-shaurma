@@ -11,9 +11,14 @@ import { Sizes } from "src/@types/sizes";
 interface Props {
   className?: string;
   handleEditItem: (item: IMenuItem) => void;
+  onDelete: VoidFunction;
 }
 
-export const ListMenu: FC<Props> = ({ className, handleEditItem }) => {
+export const ListMenu: FC<Props> = ({
+  className,
+  handleEditItem,
+  onDelete,
+}) => {
   const { data: menu, isFetching: isLoadingMenu } = useGetMenuQuery();
 
   const [deleteMenuItem, { isLoading: isLoadingDelete }] =
@@ -23,6 +28,8 @@ export const ListMenu: FC<Props> = ({ className, handleEditItem }) => {
     try {
       await deleteMenuItem(id).unwrap();
       NotificationService.success("Успішно видалено!");
+
+      onDelete();
     } catch {
       NotificationService.error("Помилка видалення");
     }

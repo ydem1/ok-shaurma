@@ -60,7 +60,7 @@ const fetchToken = async () => {
 
   try {
     const { data } = await axios.post<Pick<IAuthTokens, "access_token">>(
-      `${import.meta.env.VITE_REACT_API_URL}token/refresh/`,
+      `${import.meta.env.VITE_REACT_API_URL}/auth/refresh-token`,
       { refresh: refreshToken }
     );
 

@@ -2,7 +2,8 @@ import React, { FC } from "react";
 import cn from "classnames";
 import { Button } from "src/components/Button";
 import { Loader } from "src/components/Loader";
-import { useGetExtrasQuery } from "src/store/extras";
+import { useDeleteExtraMutation, useGetExtrasQuery } from "src/store/extras";
+import { NotificationService } from "src/helpers/notifications";
 import { Sizes } from "src/@types/sizes";
 
 interface Props {
@@ -18,19 +19,19 @@ export const ListExtras: FC<Props> = ({
 }) => {
   const { data: extras, isFetching: isLoadingExtras } = useGetExtrasQuery();
 
-  // const [deleteMenuItem, { isLoading: isLoadingDelete }] =
-  //   useDeleteMenuItemMutation();
+  const [deleteMenuItem, { isLoading: isLoadingDelete }] =
+    useDeleteExtraMutation();
 
-  // const handleDelete = async (id: string) => {
-  //   try {
-  //     await deleteMenuItem(id).unwrap();
-  //     NotificationService.success("Успішно видалено!");
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteMenuItem(id).unwrap();
+      NotificationService.success("Успішно видалено!");
 
-  //     onDelete();
-  //   } catch {
-  //     NotificationService.error("Помилка видалення");
-  //   }
-  // };
+      // onDelete();
+    } catch {
+      NotificationService.error("Помилка видалення");
+    }
+  };
 
   // const handleEdit = (editItem: IMenuItem) => {
   //   handleEditItem(editItem);
@@ -78,8 +79,8 @@ export const ListExtras: FC<Props> = ({
                   </Button>
 
                   <Button
-                  // onClick={() => handleDelete(_id)}
-                  // isDisabled={isLoadingDelete}
+                    onClick={() => handleDelete(_id)}
+                    isDisabled={isLoadingDelete}
                   >
                     ❌
                   </Button>

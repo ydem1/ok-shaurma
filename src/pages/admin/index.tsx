@@ -2,6 +2,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import { AddIMenuItemForm } from "src/page-components/admin/AddIMenuItemForm";
 import { ContactForm } from "src/page-components/admin/ContactForm";
 import { EditMenuItemForm } from "src/page-components/admin/EditMenuItemForm";
+import { ListExtras } from "src/page-components/admin/ListExtras";
 import { ListMenu } from "src/page-components/admin/ListMenu";
 import { LoginForm } from "src/page-components/admin/LoginForm";
 import { Button } from "src/components/Button";
@@ -64,8 +65,8 @@ const Admin: FC = () => {
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-              <div className="space-y-5">
+            <div className="grid grid-cols-1 gap-4 xl:grid-cols-4">
+              <div className="xl:col-span-2 space-y-5">
                 <p className="mb-2 text-xl font-semibold">Управління меню</p>
                 <ListMenu
                   handleEditItem={handleEdit}
@@ -73,7 +74,7 @@ const Admin: FC = () => {
                 />
               </div>
 
-              <div className="space-y-5" ref={editForm}>
+              <div className="xl:col-span-2 space-y-5" ref={editForm}>
                 <div className="mb-2 text-xl font-semibold">
                   {editItem ? (
                     <div className="flex items-center justify-between">
@@ -105,6 +106,15 @@ const Admin: FC = () => {
                     clearEditItem={handleCloseEdit}
                   />
                 )}
+              </div>
+
+              <div className="xl:col-span-3 space-y-5">
+                <p className="mb-2 text-xl font-semibold">Добавки</p>
+                <ListExtras />
+              </div>
+
+              <div className="space-y-5">
+                <p className="mb-2 text-xl font-semibold">Додати добавку</p>
               </div>
 
               <div className="col-span-full space-y-5">

@@ -2,6 +2,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import { AddExtraForm } from "src/page-components/admin/AddExtraForm";
 import { AddIMenuItemForm } from "src/page-components/admin/AddIMenuItemForm";
 import { ContactForm } from "src/page-components/admin/ContactForm";
+import { EditExtraForm } from "src/page-components/admin/EditExtraForm";
 import { EditMenuItemForm } from "src/page-components/admin/EditMenuItemForm";
 import { ListExtras } from "src/page-components/admin/ListExtras";
 import { ListMenu } from "src/page-components/admin/ListMenu";
@@ -162,7 +163,10 @@ const Admin: FC = () => {
                 {!editExtraItem ? (
                   <AddExtraForm />
                 ) : (
-                  <div>Форма Редагувати</div>
+                  <EditExtraForm
+                    editItem={editExtraItem}
+                    clearEditItem={handleCloseExtraEdit}
+                  />
                 )}
               </div>
 

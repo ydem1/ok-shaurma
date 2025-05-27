@@ -20,16 +20,16 @@ import { IMenuItem } from "src/@types/menu-item";
 import { Sizes } from "src/@types/sizes";
 
 const Admin: FC = () => {
-  const [editItem, setEditItem] = useState<IMenuItem | undefined>();
-  const editForm = useRef();
+  const [editMenuItem, setMenuEditItem] = useState<IMenuItem | undefined>();
+  const editMenuForm = useRef();
 
-  const handleEdit = (item: IMenuItem) => {
-    setEditItem(item);
-    scrollToComponent(editForm);
+  const handleMenuEdit = (item: IMenuItem) => {
+    setMenuEditItem(item);
+    scrollToComponent(editMenuForm);
   };
 
-  const handleCloseEdit = () => {
-    setEditItem(undefined);
+  const handleCloseMenuEdit = () => {
+    setMenuEditItem(undefined);
   };
 
   const dispatch = useAppDispatch();
@@ -74,26 +74,26 @@ const Admin: FC = () => {
               <div className="space-y-5 xl:col-span-2">
                 <p className="mb-2 text-xl font-semibold">Управління меню</p>
                 <ListMenu
-                  handleEditItem={handleEdit}
-                  onDelete={handleCloseEdit}
+                  handleEditItem={handleMenuEdit}
+                  onDelete={handleCloseMenuEdit}
                 />
               </div>
 
-              <div className="space-y-5 xl:col-span-2" ref={editForm}>
+              <div className="space-y-5 xl:col-span-2" ref={editMenuForm}>
                 <div className="mb-2 text-xl font-semibold">
-                  {editItem ? (
+                  {editMenuItem ? (
                     <div className="flex items-center justify-between">
                       <div>
                         <span>Редагувати позицію: </span>
                         <span className="text-bold underline">
-                          {editItem.name}
+                          {editMenuItem.name}
                         </span>
                       </div>
 
                       <Button
                         className="text-xl"
                         variant={ButtonVariants.SECONDARY}
-                        onClick={handleCloseEdit}
+                        onClick={handleCloseMenuEdit}
                       >
                         Додати нову позицію
                       </Button>
@@ -103,12 +103,12 @@ const Admin: FC = () => {
                   )}
                 </div>
 
-                {!editItem ? (
+                {!editMenuItem ? (
                   <AddIMenuItemForm />
                 ) : (
                   <EditMenuItemForm
-                    editItem={editItem}
-                    clearEditItem={handleCloseEdit}
+                    editItem={editMenuItem}
+                    clearEditItem={handleCloseMenuEdit}
                   />
                 )}
               </div>

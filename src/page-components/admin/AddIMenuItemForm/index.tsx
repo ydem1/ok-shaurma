@@ -61,7 +61,7 @@ export const AddIMenuItemForm: FC = () => {
         <div className="space-y-5">
           <Input name="name" type="text" placeholder="Назва" />
           <Input name="description" type="text" placeholder="Опис" />
-          <Input name="price" type="number" placeholder="Прайс" />
+          <Input name="price" type="number" placeholder="Ціна" />
           <Input name="weight" type="number" placeholder="Вага" />
           <InputFile name="image" placeholder="Фото" ref={imageInputRef} />
 

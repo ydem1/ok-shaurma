@@ -26,6 +26,9 @@ export const PreviewProductItem: FC<ProductItemProps> = ({
     }
   }, [image]);
 
+  console.log({ price, weight });
+
+
   return (
     <article className="rounded-2xl bg-white-base px-4 pb-9 pt-4 shadow-custom">
       <div className="h-60">
@@ -43,13 +46,21 @@ export const PreviewProductItem: FC<ProductItemProps> = ({
       </div>
 
       <div className="mt-4 flex flex-col gap-2.5">
-        <span className="text-xs text-gray-dark">{`${weight}г.`}</span>
-        <span className="text-lg font-bold">{name}</span>
-        <span className="text-xs text-gray-dark">{description}</span>
+        {!!weight && (
+          <span className="text-xs text-gray-dark">{`${weight}г.`}</span>
+        )}
 
-        <div>
-          <span className="text-2xl font-bold">{price}&#8372;</span>
-        </div>
+        {!!name && <span className="text-lg font-bold">{name}</span>}
+
+        {!!description && (
+          <span className="text-xs text-gray-dark">{description}</span>
+        )}
+
+        {!!price && (
+          <div>
+            <span className="text-2xl font-bold">{price}&#8372;</span>
+          </div>
+        )}
       </div>
     </article>
   );

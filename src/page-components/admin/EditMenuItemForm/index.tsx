@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
 import { Input } from "src/components/FormField/Input";
@@ -9,10 +8,7 @@ import { useUpdateMenuItemMutation } from "src/store/menu";
 import { NotificationService } from "src/helpers/notifications";
 import { IMenuItem } from "src/@types/menu-item";
 import { PreviewProductItem } from "../PreviewProductItem";
-import {
-  EDIT_MENU_ITEM_FORM_VALIDATION_SCHEMA,
-  INITIAL_EDIT_MENU_ITEM_FORM_VALUES,
-} from "./constants";
+import { INITIAL_EDIT_MENU_ITEM_FORM_VALUES } from "./constants";
 import { IEditIMenuItemFormValues } from "./types";
 
 interface Props {
@@ -29,7 +25,7 @@ export const EditMenuItemForm: FC<Props> = ({
 
   const methods = useForm<IEditIMenuItemFormValues>({
     defaultValues: INITIAL_EDIT_MENU_ITEM_FORM_VALUES,
-    resolver: yupResolver(EDIT_MENU_ITEM_FORM_VALIDATION_SCHEMA),
+    // resolver: yupResolver(EDIT_MENU_ITEM_FORM_VALIDATION_SCHEMA),
   });
 
   const watchedFields = methods.watch();
@@ -68,8 +64,8 @@ export const EditMenuItemForm: FC<Props> = ({
     methods.reset({
       name,
       description,
-      price: `${price}`,
-      weight: `${weight}`,
+      price: price ? `${price}` : "",
+      weight: weight ? `${weight}` : "",
     });
   }, [editItem, methods]);
 

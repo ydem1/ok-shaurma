@@ -1,6 +1,5 @@
 import React, { FC, useRef } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "src/components/Button";
 import { ButtonVariants } from "src/components/Button/types";
 import { Input } from "src/components/FormField/Input";
@@ -8,11 +7,9 @@ import { InputFile } from "src/components/FormField/InputFile";
 import { useCreateMenuItemMutation } from "src/store/menu";
 import { NotificationService } from "src/helpers/notifications";
 import { PreviewProductItem } from "../PreviewProductItem";
-import {
-  ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA,
-  INITIAL_ADD_MENU_ITEM_FORM_VALUES,
-} from "./constants";
+import { ADD_MENU_ITEM_FORM_VALIDATION_SCHEMA, INITIAL_ADD_MENU_ITEM_FORM_VALUES } from "./constants";
 import { IAddIMenuItemFormValues } from "./types";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export const AddIMenuItemForm: FC = () => {
   const imageInputRef = useRef<HTMLInputElement | null>(null);

@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { axiosBaseQuery } from "src/services/axiosBaseQuery";
-import { IMenuItem } from "src/@types/menu-item";
+import { IMenuItem, IMenuItemFromServer } from "src/@types/menu-item";
 
 export const menuApiSlice = createApi({
   reducerPath: "menu",
@@ -12,6 +12,11 @@ export const menuApiSlice = createApi({
         url: "/menu/",
         method: "GET",
       }),
+      transformResponse: (response: IMenuItemFromServer[]) =>
+        response.map((item) => ({
+          ...item,
+          image: item.imageUrl,
+        })),
       providesTags: ["menu"],
     }),
 

@@ -16,6 +16,7 @@ import {
   selectIsLoadingAuthorized,
 } from "src/store/admin/selectors";
 import { scrollToComponent } from "src/utils/scrollToComponent";
+import { IExtra } from "src/@types/extra";
 import { IMenuItem } from "src/@types/menu-item";
 import { Sizes } from "src/@types/sizes";
 
@@ -30,6 +31,18 @@ const Admin: FC = () => {
 
   const handleCloseMenuEdit = () => {
     setMenuEditItem(undefined);
+  };
+
+  const [editExtraItem, setExtraEditItem] = useState<IExtra | undefined>();
+  const editExtraForm = useRef();
+
+  const handleExtraEdit = (item: IExtra) => {
+    setExtraEditItem(item);
+    scrollToComponent(editExtraForm);
+  };
+
+  const handleCloseExtraEdit = () => {
+    setExtraEditItem(undefined);
   };
 
   const dispatch = useAppDispatch();
@@ -70,7 +83,7 @@ const Admin: FC = () => {
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 gap-y-20 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-x-4 gap-y-20 xl:grid-cols-4">
               <div className="space-y-5 xl:col-span-2">
                 <p className="mb-2 text-xl font-semibold">Управління меню</p>
                 <ListMenu
@@ -115,11 +128,15 @@ const Admin: FC = () => {
 
               <div className="space-y-5 xl:col-span-3">
                 <p className="mb-2 text-xl font-semibold">Добавки</p>
-                <ListExtras />
+                <ListExtras
+                  handleEditItem={handleExtraEdit}
+                  onDelete={handleCloseExtraEdit}
+                />
               </div>
 
-              <div className="space-y-5">
+              <div className="space-y-5" ref={editExtraForm}>
                 <p className="mb-2 text-xl font-semibold">Додати добавку</p>
+                <div>ФОРМА</div>
               </div>
 
               <div className="col-span-full space-y-5">

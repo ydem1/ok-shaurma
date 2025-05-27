@@ -4,18 +4,19 @@ import { Button } from "src/components/Button";
 import { Loader } from "src/components/Loader";
 import { useDeleteExtraMutation, useGetExtrasQuery } from "src/store/extras";
 import { NotificationService } from "src/helpers/notifications";
+import { IExtra } from "src/@types/extra";
 import { Sizes } from "src/@types/sizes";
 
 interface Props {
   className?: string;
-  // handleEditItem: (item: IMenuItem) => void;
-  // onDelete: VoidFunction;
+  handleEditItem: (item: IExtra) => void;
+  onDelete: VoidFunction;
 }
 
 export const ListExtras: FC<Props> = ({
   className,
-  // handleEditItem,
-  // onDelete,
+  handleEditItem,
+  onDelete,
 }) => {
   const { data: extras, isFetching: isLoadingExtras } = useGetExtrasQuery();
 
@@ -27,15 +28,15 @@ export const ListExtras: FC<Props> = ({
       await deleteMenuItem(id).unwrap();
       NotificationService.success("Успішно видалено!");
 
-      // onDelete();
+      onDelete();
     } catch {
       NotificationService.error("Помилка видалення");
     }
   };
 
-  // const handleEdit = (editItem: IMenuItem) => {
-  //   handleEditItem(editItem);
-  // };
+  const handleEdit = (editItem: IMenuItem) => {
+    handleEditItem(editItem);
+  };
 
   return (
     <div className={cn("rounded-2xl border bg-white-base", className)}>
@@ -64,16 +65,16 @@ export const ListExtras: FC<Props> = ({
 
                 <div className="flex items-center justify-end gap-3">
                   <Button
-                  // onClick={() =>
-                  //   handleEdit({
-                  //     _id,
-                  //     name,
-                  //     price,
-                  //     weight,
-                  //     description,
-                  //     image,
-                  //   })
-                  // }
+                    onClick={() =>
+                      handleEdit({
+                        _id,
+                        name,
+                        price,
+                        weight,
+                        description,
+                        image,
+                      })
+                    }
                   >
                     ✏️
                   </Button>

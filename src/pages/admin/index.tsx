@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from "react";
+import { AddExtraForm } from "src/page-components/admin/AddExtraForm";
 import { AddIMenuItemForm } from "src/page-components/admin/AddIMenuItemForm";
 import { ContactForm } from "src/page-components/admin/ContactForm";
 import { EditMenuItemForm } from "src/page-components/admin/EditMenuItemForm";
@@ -159,7 +160,7 @@ const Admin: FC = () => {
                 </div>
 
                 {!editExtraItem ? (
-                  <div>Форма додати</div>
+                  <AddExtraForm />
                 ) : (
                   <div>Форма Редагувати</div>
                 )}

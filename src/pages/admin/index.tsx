@@ -65,7 +65,7 @@ const Admin: FC = () => {
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-y-20 xl:grid-cols-4">
               <div className="xl:col-span-2 space-y-5">
                 <p className="mb-2 text-xl font-semibold">Управління меню</p>
                 <ListMenu

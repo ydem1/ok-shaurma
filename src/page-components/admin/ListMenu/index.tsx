@@ -50,7 +50,7 @@ export const ListMenu: FC<Props> = ({
       <ul className="grid grid-cols-1">
         {menu && !isLoadingMenu && (
           <>
-            <li className="grid grid-cols-[80px_2fr_2fr_4fr_auto_1fr] gap-4 rounded-t-2xl border-b bg-gray-50 p-5 font-semibold text-gray-700">
+            <li className="hidden gap-4 rounded-t-2xl border-b bg-gray-50 p-5 font-semibold text-gray-700 sm:grid sm:grid-cols-[80px_2fr_2fr_4fr_auto_1fr]">
               <div>Фото</div>
               <div>Вага</div>
               <div>Назва</div>
@@ -58,44 +58,81 @@ export const ListMenu: FC<Props> = ({
               <div>Ціна</div>
               <div className="text-right">Керування</div>
             </li>
+
             {menu.map(({ _id, name, price, weight, description, image }) => (
               <li
                 key={_id}
-                className="grid grid-cols-[80px_2fr_2fr_4fr_auto_1fr] items-center gap-4 border-b p-5 last:border-none"
+                className="flex flex-col gap-4 border-b p-5 last:border-none sm:grid sm:grid-cols-[80px_2fr_2fr_4fr_auto_1fr] sm:items-center"
               >
-                <div className="h-20 w-20">
-                  <img
-                    className="h-full w-full rounded-xl object-cover"
-                    src={getImageUrl(image)}
-                    alt={name}
-                  />
-                </div>
-                <div>{weight}г</div>
-                <div>{name}</div>
-                <div>{description}</div>
-                <div>{price}&#8372;</div>
+                <div className="flex items-center justify-between">
+                  <div className="h-20 w-20">
+                    <img
+                      className="h-full w-full rounded-xl object-cover"
+                      src={getImageUrl(image)}
+                      alt={name}
+                    />
+                  </div>
 
-                <div className="flex items-center justify-end gap-3">
-                  <Button
-                    onClick={() =>
-                      handleEdit({
-                        _id,
-                        name,
-                        price,
-                        weight,
-                        description,
-                        image,
-                      })
-                    }
-                  >
-                    ✏️
-                  </Button>
-                  <Button
-                    onClick={() => handleDelete(_id)}
-                    isDisabled={isLoadingDelete}
-                  >
-                    ❌
-                  </Button>
+                  <span className="font-bold text-gray-700 sm:hidden">
+                    Фото
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between gap-10">
+                  <span>{weight}г</span>
+                  <span className="font-bold text-gray-700 sm:hidden">
+                    Вага
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between gap-10">
+                  <span>{name}</span>
+                  <span className="font-bold text-gray-700 sm:hidden">
+                    Назва
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between gap-10">
+                  <span>{description}</span>
+                  <span className="font-bold text-gray-700 sm:hidden">
+                    Опис
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between gap-10">
+                  <span>{price}&#8372;</span>
+                  <span className="font-bold text-gray-700 sm:hidden">
+                    Ціна
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between gap-10">
+                  <div className="flex items-center justify-end gap-3">
+                    <Button
+                      onClick={() =>
+                        handleEdit({
+                          _id,
+                          name,
+                          price,
+                          weight,
+                          description,
+                          image,
+                        })
+                      }
+                    >
+                      ✏️
+                    </Button>
+                    <Button
+                      onClick={() => handleDelete(_id)}
+                      isDisabled={isLoadingDelete}
+                    >
+                      ❌
+                    </Button>
+                  </div>
+
+                  <span className="font-bold text-gray-700 sm:hidden">
+                    Керування
+                  </span>
                 </div>
               </li>
             ))}

@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { admin } from "./admin/slice";
 import { contactApiSlice } from "./contact";
+import { extraApiSlice } from "./extras";
 import { menuApiSlice } from "./menu";
 
 export const store = configureStore({
@@ -8,11 +9,13 @@ export const store = configureStore({
     admin,
     [contactApiSlice.reducerPath]: contactApiSlice.reducer,
     [menuApiSlice.reducerPath]: menuApiSlice.reducer,
+    [extraApiSlice.reducerPath]: extraApiSlice.reducer,
   }),
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(menuApiSlice.middleware)
+      .concat(extraApiSlice.middleware)
       .concat(contactApiSlice.middleware),
 });
 

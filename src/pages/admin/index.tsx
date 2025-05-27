@@ -135,8 +135,34 @@ const Admin: FC = () => {
               </div>
 
               <div className="space-y-5" ref={editExtraForm}>
-                <p className="mb-2 text-xl font-semibold">Додати добавку</p>
-                <div>ФОРМА</div>
+                <div className="mb-2 text-xl font-semibold">
+                  {editExtraItem ? (
+                    <div className="flex flex-row items-center justify-between gap-5 xl:flex-col xl:items-start xl:justify-start">
+                      <div>
+                        <span>Редагувати добавку: </span>
+                        <span className="text-bold underline">
+                          {editExtraItem.name}
+                        </span>
+                      </div>
+
+                      <Button
+                        className="text-xl"
+                        variant={ButtonVariants.SECONDARY}
+                        onClick={handleCloseExtraEdit}
+                      >
+                        Додати нову добавку
+                      </Button>
+                    </div>
+                  ) : (
+                    <p>Додати добавку</p>
+                  )}
+                </div>
+
+                {!editExtraItem ? (
+                  <div>Форма додати</div>
+                ) : (
+                  <div>Форма Редагувати</div>
+                )}
               </div>
 
               <div className="col-span-full space-y-5">

@@ -34,7 +34,7 @@ export const ListExtras: FC<Props> = ({
     }
   };
 
-  const handleEdit = (editItem: IMenuItem) => {
+  const handleEdit = (editItem: IExtra) => {
     handleEditItem(editItem);
   };
 
@@ -70,9 +70,6 @@ export const ListExtras: FC<Props> = ({
                         _id,
                         name,
                         price,
-                        weight,
-                        description,
-                        image,
                       })
                     }
                   >

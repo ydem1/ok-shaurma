@@ -37,6 +37,11 @@ const Admin: FC = () => {
   const isAuthorized = useAppSelector(selectIsAuthorized);
   const isLoading = useAppSelector(selectIsLoadingAuthorized);
 
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(chechAdminAsync());
+  };
+
   useEffect(() => {
     dispatch(chechAdminAsync());
   }, [dispatch]);
@@ -59,14 +64,14 @@ const Admin: FC = () => {
               <Button
                 className="text-xl"
                 variant={ButtonVariants.SECONDARY}
-                onClick={() => dispatch(logout())}
+                onClick={handleLogout}
               >
                 Вийти
               </Button>
             </div>
 
             <div className="grid grid-cols-1 gap-y-20 xl:grid-cols-4">
-              <div className="xl:col-span-2 space-y-5">
+              <div className="space-y-5 xl:col-span-2">
                 <p className="mb-2 text-xl font-semibold">Управління меню</p>
                 <ListMenu
                   handleEditItem={handleEdit}
@@ -74,7 +79,7 @@ const Admin: FC = () => {
                 />
               </div>
 
-              <div className="xl:col-span-2 space-y-5" ref={editForm}>
+              <div className="space-y-5 xl:col-span-2" ref={editForm}>
                 <div className="mb-2 text-xl font-semibold">
                   {editItem ? (
                     <div className="flex items-center justify-between">
@@ -108,7 +113,7 @@ const Admin: FC = () => {
                 )}
               </div>
 
-              <div className="xl:col-span-3 space-y-5">
+              <div className="space-y-5 xl:col-span-3">
                 <p className="mb-2 text-xl font-semibold">Добавки</p>
                 <ListExtras />
               </div>

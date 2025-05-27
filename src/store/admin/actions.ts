@@ -21,7 +21,7 @@ export const loginAdminAsync = createAsyncThunk(
   ) => {
     try {
       const { data } = await instance.post<IAuthTokens>("/auth/login/", {
-        email,
+        email: email.trim(),
         password,
       });
 

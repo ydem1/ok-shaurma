@@ -79,28 +79,52 @@ export const ListMenu: FC<Props> = ({
                 </div>
 
                 <div className="flex items-center justify-between gap-10">
-                  <span>{weight}г</span>
+                  {weight ? (
+                    <span>{weight}г</span>
+                  ) : (
+                    <span className="rounded-lg bg-red-500 px-0.5 text-white-base text-center">
+                      не вказано
+                    </span>
+                  )}
                   <span className="font-bold text-gray-700 sm:hidden">
                     Вага
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between gap-10">
-                  <span>{name}</span>
+                  {name ? (
+                    <span>{name}</span>
+                  ) : (
+                    <span className="rounded-lg bg-red-500 px-0.5 text-white-base text-center">
+                      не вказано
+                    </span>
+                  )}
                   <span className="font-bold text-gray-700 sm:hidden">
                     Назва
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between gap-10">
-                  <span>{description}</span>
+                  {description ? (
+                    <span>{description}</span>
+                  ) : (
+                    <span className="rounded-lg bg-red-500 px-0.5 text-white-base text-center">
+                      не вказано
+                    </span>
+                  )}
                   <span className="font-bold text-gray-700 sm:hidden">
                     Опис
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between gap-10">
-                  <span>{price}&#8372;</span>
+                  {price ? (
+                    <span>{price}&#8372;</span>
+                  ) : (
+                    <span className="rounded-lg bg-red-500 px-0.5 text-white-base text-center">
+                      не вказано
+                    </span>
+                  )}
                   <span className="font-bold text-gray-700 sm:hidden">
                     Ціна
                   </span>
